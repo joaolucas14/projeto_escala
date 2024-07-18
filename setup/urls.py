@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.urls import path
-from escala.views import Home, CustomLoginView
+from escala.views import Home, CustomLoginView, RegisterView
 
 urlpatterns = [
     path("", Home.as_view(), name="home"),
     path("admin/", admin.site.urls),
     path("login/", CustomLoginView.as_view(), name="login"),
+    path("registro/", RegisterView.as_view(), name="registro"),
 ]

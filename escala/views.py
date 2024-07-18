@@ -1,10 +1,11 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
-from .forms import CustomLoginForm
+from .forms import CustomLoginForm, RegisterForm
+from django.views.generic.edit import CreateView
+from django.contrib.auth.models import User
 
 
 class Home(TemplateView):
@@ -24,3 +25,10 @@ class CustomLoginView(FormView):
             login(self.request, user)
             return HttpResponseRedirect(self.get_success_url())
         return super().form_invalid(form)
+    
+
+class RegisterView(CreateView):
+    model = User
+    form_class = RegisterForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy('login')
