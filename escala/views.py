@@ -12,6 +12,10 @@ class Home(TemplateView):
     template_name = "escala/home.html"
 
 
+class Teste(TemplateView):
+    template_name = "escala/teste.html"
+
+
 class CustomLoginView(FormView):
     template_name = 'registration/login.html'
     form_class = CustomLoginForm
