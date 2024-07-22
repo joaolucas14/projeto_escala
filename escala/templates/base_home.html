@@ -35,17 +35,19 @@
               </a>
             </li>
             <li class="nav-item py-sm-0">
-              <a href="{% url "logout" %}" class="nav-link text-white">
+                <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                  {% csrf_token %}
+              </form>
+              <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link text-white"> 
                 <i class="bi bi-box-arrow-right"></i>
-                <span class="fs-4 d-none ms-3 d-sm-inline">Home</span>
+                Logout</a>
               </a>
             </li>
           </ul>
         </div>
       </div>
-
-      <!-- Bloco de conteúdo principal -->
       <main class="col py-3">
+        
         {% block content %}{% endblock content %}
       </main>
     </div>
