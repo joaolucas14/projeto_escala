@@ -6,6 +6,8 @@ from django.views.generic import FormView
 from .forms import CustomLoginForm, RegisterForm
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
+# from django.contrib.auth.views import LogoutView
+# from django.http import HttpResponseNotAllowed
 
 
 class Inicio(TemplateView):
@@ -29,6 +31,14 @@ class CustomLoginView(FormView):
             login(self.request, user)
             return HttpResponseRedirect(self.get_success_url())
         return super().form_invalid(form)
+    
+
+# class CustomLogoutView(LogoutView):
+#     def get(self, request, *args, **kwargs):
+#         # Permitir apenas o método GET para o logout
+#         if request.method == 'GET':
+#             return self.post(request, *args, **kwargs)
+#         return HttpResponseNotAllowed(['POST', 'GET'])
     
 
 class RegisterView(CreateView):
