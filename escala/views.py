@@ -8,6 +8,10 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 
 
+class Inicio(TemplateView):
+    template_name = "escala/inicio.html"
+
+
 class Home(TemplateView):
     template_name = "escala/home.html"
 
