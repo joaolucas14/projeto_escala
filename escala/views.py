@@ -6,6 +6,7 @@ from django.views.generic import FormView
 from .forms import CustomLoginForm, RegisterForm
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
+from .models import Missa
 # from django.contrib.auth.views import LogoutView
 # from django.http import HttpResponseNotAllowed
 
@@ -46,3 +47,10 @@ class RegisterView(CreateView):
     form_class = RegisterForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
+
+
+class RegistroMissa(CreateView):
+    model = Missa
+    template_name = 'registration/missa.html'
+    fields = ['data','horario', 'pessoas']
+    success_url = reverse_lazy('home')
