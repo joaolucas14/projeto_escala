@@ -34,14 +34,6 @@ class CustomLoginView(FormView):
         return super().form_invalid(form)
     
 
-# class CustomLogoutView(LogoutView):
-#     def get(self, request, *args, **kwargs):
-#         # Permitir apenas o método GET para o logout
-#         if request.method == 'GET':
-#             return self.post(request, *args, **kwargs)
-#         return HttpResponseNotAllowed(['POST', 'GET'])
-    
-
 class RegisterView(CreateView):
     model = User
     form_class = RegisterForm
@@ -51,6 +43,12 @@ class RegisterView(CreateView):
 
 class RegistroMissa(CreateView):
     model = Missa
-    template_name = 'registration/missa.html'
+    template_name = 'registration/cadastro_missa.html'
     fields = ['data','horario', 'pessoas']
     success_url = reverse_lazy('home')
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['data'].widget.attrs.update({'type': 'date'})
+        form.fields['horario'].widget.choices = [(choice.strftime('%H:%M:%S'), label) for choice, label in Missa.HORARIOS_CHOICES]
+        return form
