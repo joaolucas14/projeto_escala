@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -6,8 +6,8 @@ from django.views.generic import FormView
 from .forms import CustomLoginForm, RegisterForm
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
-# from django.contrib.auth.views import LogoutView
-# from django.http import HttpResponseNotAllowed
+from .models import Missa
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class Inicio(TemplateView):
@@ -16,6 +16,16 @@ class Inicio(TemplateView):
 
 class Home(TemplateView):
     template_name = "escala/home.html"
+
+
+class Agenda(LoginRequiredMixin, ListView):
+    model = Missa
+    template_name = 'escala/agenda.html'
+    context_object_name = 'missas'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Missa.objects.filter(pessoas=user).prefetch_related('pessoas')
 
 
 class CustomLoginView(FormView):
@@ -33,16 +43,21 @@ class CustomLoginView(FormView):
         return super().form_invalid(form)
     
 
-# class CustomLogoutView(LogoutView):
-#     def get(self, request, *args, **kwargs):
-#         # Permitir apenas o método GET para o logout
-#         if request.method == 'GET':
-#             return self.post(request, *args, **kwargs)
-#         return HttpResponseNotAllowed(['POST', 'GET'])
-    
-
 class RegisterView(CreateView):
     model = User
     form_class = RegisterForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
+
+
+class RegistroMissa(CreateView):
+    model = Missa
+    template_name = 'registration/cadastro_missa.html'
+    fields = ['data','horario', 'pessoas']
+    success_url = reverse_lazy('home')
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['data'].widget.attrs.update({'type': 'date'})
+        form.fields['horario'].widget.choices = [(choice.strftime('%H:%M:%S'), label) for choice, label in Missa.HORARIOS_CHOICES]
+        return form

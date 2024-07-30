@@ -30,5 +30,5 @@ class RegisterForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.help_text = ''
-            # Esta linha abaixo garante que os labels personalizados sejam aplicados
             field.label = self.Meta.labels.get(field_name, field.label)
+
