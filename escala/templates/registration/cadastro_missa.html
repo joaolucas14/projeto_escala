@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Missa</title>
-</head>
-<body>
-    <h2>Missa</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Missa</button>
-    </form>
-</body>
-</html>
+{% extends "base_form.html" %}
+{% load crispy_forms_tags %}
+{% block titulo_form %}Missa{% endblock titulo_form %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button type="submit">Cadastrar</button>
+</form>
+{% endblock content %}
+

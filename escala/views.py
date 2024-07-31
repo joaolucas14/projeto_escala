@@ -14,10 +14,6 @@ class Inicio(TemplateView):
     template_name = "escala/inicio.html"
 
 
-class Home(TemplateView):
-    template_name = "escala/home.html"
-
-
 class Agenda(LoginRequiredMixin, ListView):
     model = Missa
     template_name = 'escala/agenda.html'
@@ -31,7 +27,7 @@ class Agenda(LoginRequiredMixin, ListView):
 class CustomLoginView(FormView):
     template_name = 'registration/login.html'
     form_class = CustomLoginForm
-    success_url = reverse_lazy('home')  
+    success_url = reverse_lazy('agenda')  
 
     def form_valid(self, form):
         username = form.cleaned_data.get('username')
@@ -50,11 +46,11 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('login')
 
 
-class RegistroMissa(CreateView):
+class RegistroMissa(LoginRequiredMixin, CreateView):
     model = Missa
     template_name = 'registration/cadastro_missa.html'
     fields = ['data','horario', 'pessoas']
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('agenda')
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)

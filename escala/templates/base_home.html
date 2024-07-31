@@ -28,21 +28,28 @@
           </a>
           <ul class="nav nav-pills flex-column mt-2">
             <li class="nav-item py-sm-0">
-              <a href="{% url 'home' %}" class="nav-link text-white">
-
-                <i class="bi bi-house-door-fill"></i>
-                <span class="fs-4 d-none ms-3 d-sm-inline">Dashboard</span>
+              <a href="{% url 'agenda' %}" class="nav-link text-white">
+                
+                <i class="bi bi-calendar-event"></i>
+                <span class="fs-4 d-none ms-3 d-sm-inline">Minhas missas</span>
               </a>
             </li>
             <li class="nav-item py-sm-0">
-                <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
-                  {% csrf_token %}
-              </form>
-              <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link text-white"> 
-                <i class="bi bi-box-arrow-right"></i>
-                Logout</a>
+              <a href="{% url "cadastro_missa" %}" class="nav-link text-white">
+
+                <i class="bi bi-calendar2-plus"></i>
+                <span class="fs-4 d-none ms-3 d-sm-inline">Criar missa</span>
               </a>
             </li>
+            <li class="nav-item py-sm-0">
+              <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                {% csrf_token %}
+            </form>
+            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link text-white"> 
+              <i class="bi bi-box-arrow-right"></i>
+              Logout</a>
+            </a>
+          </li>
           </ul>
         </div>
       </div>
