@@ -4,7 +4,14 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
-    {{form|crispy}}
+    <input type="date" name="data" class="dateinput form-control mb-3" required="" id="id_data" wfd-id="id1">
+    <select name="horario" class="select form-select mb-3" id="id_horario"> <option value="07:00:00">7:00</option> <option value="09:00:00">9:00</option> <option value="19:00:00">19:00</option>
+    </select>
+    <div>
+        <label for="{{ form.pessoas.id_for_label }}">Pessoas:</label>
+        {{ form.pessoas|crispy }}
+    </div>
+            
     <button type="submit">Cadastrar</button>
 </form>
 {% endblock content %}
