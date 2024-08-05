@@ -1,0 +1,22 @@
+{% extends "base_home.html" %}
+{% block content %}
+    <h1>Escala Geral</h1>
+    {% if missas %}
+        <ul>
+            {% for missa in missas %}
+                <li>
+                    <strong>Data:</strong> {{ missa.data }} <br>
+                    <strong>Horário:</strong> {{ missa.horario }} <br>
+                    <strong>Pessoas:</strong>
+                    <ul>
+                        {% for pessoa in missa.pessoas.all %}
+                            <li>{{ pessoa.username }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Você não está participando de nenhuma missa.</p>
+    {% endif %}
+{% endblock content  %}
