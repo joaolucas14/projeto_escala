@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Register</title>
-</head>
-<body>
-    <h2>Register</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-</body>
-</html>
+{% extends "base_form.html" %}
+{% load crispy_forms_tags %}
+{% block titulo_form %}Registro{% endblock titulo_form %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+
+            
+    <button type="submit" class="btn btn-warning text-white fw-bold ">Registrar-se</button>
+    <a href="{{ SITE_URL }}{% url 'inicio' %}" class="btn btn-warning text-white fw-bold">Voltar</a> 
+</form>
+{% endblock content %}

@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Field
+from .models import Missa
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -32,3 +35,29 @@ class RegisterForm(UserCreationForm):
             field.help_text = ''
             field.label = self.Meta.labels.get(field_name, field.label)
 
+
+class MissaForm(forms.ModelForm):
+    class Meta:
+        model = Missa
+        fields = ['data', 'horario', 'pessoas']
+        widgets = {
+            'data': forms.DateInput(attrs={'type': 'date'}),
+            'horario': forms.Select(),
+            'pessoas': forms.SelectMultiple(attrs={
+                'class': 'form-control',
+                'size': '10',
+                'style': 'width: 100%;',
+                'aria-label': 'Select people for the Mass',
+                'placeholder': 'Choose people',
+            }),  
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            Field('data', css_class='form-control'),
+            Field('horario', css_class='form-control'),
+            Field('pessoas', css_class='form-control'),
+        )

@@ -3,12 +3,11 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
-from .forms import CustomLoginForm, RegisterForm
+from .forms import CustomLoginForm, RegisterForm, MissaForm
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 from .models import Missa
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 
 class Inicio(TemplateView):
     template_name = "escala/inicio.html"
@@ -49,11 +48,12 @@ class RegisterView(CreateView):
 class RegistroMissa(LoginRequiredMixin, CreateView):
     model = Missa
     template_name = 'registration/cadastro_missa.html'
-    fields = ['data','horario', 'pessoas']
+    form_class = MissaForm
     success_url = reverse_lazy('agenda')
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields['data'].widget.attrs.update({'type': 'date'})
         form.fields['horario'].widget.choices = [(choice.strftime('%H:%M:%S'), label) for choice, label in Missa.HORARIOS_CHOICES]
+        form.fields['pessoas'].queryset = User.objects.all()
         return form
