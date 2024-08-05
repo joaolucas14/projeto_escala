@@ -5,6 +5,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field
 from .models import Missa
 
+
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Usuário'}), label="Usuário")
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Senha'}), label="Senha")
@@ -41,8 +42,14 @@ class MissaForm(forms.ModelForm):
         fields = ['data', 'horario', 'pessoas']
         widgets = {
             'data': forms.DateInput(attrs={'type': 'date'}),
-            'horario': forms.Select(),  # ou ajuste conforme necessário
-            'pessoas': forms.SelectMultiple(),  # ou ajuste conforme necessário
+            'horario': forms.Select(),
+            'pessoas': forms.SelectMultiple(attrs={
+                'class': 'form-control',
+                'size': '10',
+                'style': 'width: 100%;',
+                'aria-label': 'Select people for the Mass',
+                'placeholder': 'Choose people',
+            }),  
         }
 
     def __init__(self, *args, **kwargs):
