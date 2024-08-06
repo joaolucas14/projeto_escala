@@ -2,21 +2,23 @@
 {% block content %}
     <h1>Minhas Missas</h1>
     {% if missas %}
-        <ul>
+    <div class="container mt-5">
+        <ul class="list-group list-group-flush d-flex flex-row flex-wrap">
             {% for missa in missas %}
-                <li>
-                    <strong>Data:</strong> {{ missa.data }} <br>
-                    <strong>Horário:</strong> {{ missa.horario }} <br>
-                    <strong>Pessoas:</strong>
-                    <ul>
-                        {% for pessoa in missa.pessoas.all %}
-                            <li>{{ pessoa.username }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
+            <li class="list-group-item me-3 border mb-5 mr-2">
+                <strong>Data:</strong> {{ missa.data }} <br>
+                <strong>Horário:</strong> {{ missa.horario }} <br>
+                <strong>Pessoas:</strong>
+                <ul class="list-unstyled">
+                    {% for pessoa in missa.pessoas.all %}
+                    <li><i class="bi bi-arrow-right-circle-fill ml-5 mr-1"></i>{{ pessoa.username }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
             {% endfor %}
         </ul>
-    {% else %}
-        <p>Você não está participando de nenhuma missa.</p>
-    {% endif %}
+    </div>
+{% else %}
+    <p>Você não está participando de nenhuma missa.</p>
+{% endif %}
 {% endblock content  %}
