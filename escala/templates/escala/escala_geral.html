@@ -1,6 +1,6 @@
 {% extends "base_home.html" %}
 {% block content %}
-    <h1>Minhas Missas</h1>
+    <h1>Escala Geral</h1>
     {% if missas %}
     <div class="container mt-5">
         <ul class="list-group list-group-flush d-flex flex-row flex-wrap">
@@ -18,7 +18,7 @@
             {% endfor %}
         </ul>
     </div>
-{% else %}
-    <p>Você não está participando de nenhuma missa.</p>
-{% endif %}
+    {% else %}
+        <p>Você não está participando de nenhuma missa.</p>
+    {% endif %}
 {% endblock content  %}

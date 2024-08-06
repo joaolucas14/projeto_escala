@@ -30,17 +30,24 @@
             <li class="nav-item py-sm-0">
               <a href="{% url 'agenda' %}" class="nav-link text-white">
                 
-                <i class="bi bi-calendar-event"></i>
+                <i class="bi bi-calendar-event-fill"></i>
                 <span class="fs-4 d-none ms-3 d-sm-inline">Minhas missas</span>
               </a>
             </li>
             <li class="nav-item py-sm-0">
+              <a href="{% url 'escala_geral' %}" class="nav-link text-white">
+                <i class="bi bi-calendar2-week-fill"></i>
+                <span class="fs-4 d-none ms-3 d-sm-inline">Escala Geral</span>
+              </a>
+            </li>
+            {% if user.is_superuser %}
+            <li class="nav-item py-sm-0">
               <a href="{% url "cadastro_missa" %}" class="nav-link text-white">
-
-                <i class="bi bi-calendar2-plus"></i>
+                <i class="bi bi-calendar-plus-fill"></i>
                 <span class="fs-4 d-none ms-3 d-sm-inline">Criar missa</span>
               </a>
             </li>
+            {% endif %}
             <li class="nav-item py-sm-0">
               <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
                 {% csrf_token %}

@@ -23,6 +23,12 @@ class Agenda(LoginRequiredMixin, ListView):
         return Missa.objects.filter(pessoas=user).prefetch_related('pessoas')
 
 
+class EscalaGeral(LoginRequiredMixin, ListView):
+    model = Missa
+    template_name = 'escala/escala_geral.html'
+    context_object_name = 'missas'
+
+
 class CustomLoginView(FormView):
     template_name = 'registration/login.html'
     form_class = CustomLoginForm
@@ -53,7 +59,5 @@ class RegistroMissa(LoginRequiredMixin, CreateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        form.fields['data'].widget.attrs.update({'type': 'date'})
         form.fields['horario'].widget.choices = [(choice.strftime('%H:%M:%S'), label) for choice, label in Missa.HORARIOS_CHOICES]
-        form.fields['pessoas'].queryset = User.objects.all()
         return form
