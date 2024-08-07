@@ -1,8 +1,9 @@
 {% extends "base_home.html" %}
 {% block content %}
-    <h1>Minhas Missas</h1>
+    <h1>Seja Bem Vindo {{user.username}}!</h1>
+    <h1 class="mt-5 ml-2">Minhas Missas:</h1>
     {% if missas %}
-    <div class="container mt-5">
+    <div class="container mt-4">
         <ul class="list-group list-group-flush d-flex flex-row flex-wrap">
             {% for missa in missas %}
             <li class="list-group-item me-3 border mb-5 mr-2">

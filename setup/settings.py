@@ -145,3 +145,5 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGOUT_REDIRECT_URL = '/'   
 
+# settings.py
+AUTH_USER_MODEL = 'escala.UsuarioCustomizado'

@@ -8,6 +8,8 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 from .models import Missa
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import UsuarioCustomizado
+
 
 class Inicio(TemplateView):
     template_name = "escala/inicio.html"
@@ -45,7 +47,7 @@ class CustomLoginView(FormView):
     
 
 class RegisterView(CreateView):
-    model = User
+    model = UsuarioCustomizado
     form_class = RegisterForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')

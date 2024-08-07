@@ -1,9 +1,19 @@
 # myapp/models.py
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from datetime import time
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 
 
+class UsuarioCustomizado(AbstractUser):
+    escalado = models.BooleanField(default=False)
+    # Adicione aqui os campos adicionais
+
+    def __str__(self):
+        return self.username
+    
+    
 class Missa(models.Model):
     HORARIOS_CHOICES = [
         (time(7, 0), "7:00"),
@@ -12,7 +22,11 @@ class Missa(models.Model):
     ]
     data = models.DateField()
     horario = models.TimeField(choices=HORARIOS_CHOICES)
-    pessoas = models.ManyToManyField(User, related_name='missas')
+    pessoas = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name='missas'
+        )
 
     def __str__(self):
         return f'{self.data.strftime("%Y-%m-%d")} {self.horario.strftime("%H:%M")}'
+
+
