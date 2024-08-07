@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field
 from .models import Missa
+from .models import UsuarioCustomizado
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -13,15 +14,19 @@ class CustomLoginForm(AuthenticationForm):
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
+    additional_field_1 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Additional Field 1'}))
+    additional_field_2 = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date', 'placeholder': 'Additional Field 2'}))
 
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        model = UsuarioCustomizado
+        fields = ['username', 'email', 'password1', 'password2', 'additional_field_1', 'additional_field_2']
         labels = {
             'username': 'Usuário',
             'email': 'Email',
             'password1': 'Senha',
             'password2': 'Confirmar Senha',
+            'additional_field_1': 'Additional Field 1',
+            'additional_field_2': 'Additional Field 2',
         }
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Usuário'}),
