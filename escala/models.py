@@ -7,10 +7,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class UsuarioCustomizado(AbstractUser):
-    is_special_user = models.BooleanField(default=False)
+    escalado = models.BooleanField(default=False)
     # Adicione aqui os campos adicionais
-    additional_field_1 = models.CharField(max_length=255, blank=True, null=True)
-    additional_field_2 = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.username

@@ -13,20 +13,21 @@ class CustomLoginForm(AuthenticationForm):
 
 
 class RegisterForm(UserCreationForm):
-    email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
-    additional_field_1 = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Additional Field 1'}))
-    additional_field_2 = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date', 'placeholder': 'Additional Field 2'}))
+    email = forms.EmailField(
+        required=False,
+        widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
 
     class Meta:
         model = UsuarioCustomizado
-        fields = ['username', 'email', 'password1', 'password2', 'additional_field_1', 'additional_field_2']
+        fields = [
+            'username', 'email', 'password1', 'password2'
+            ]
         labels = {
             'username': 'Usuário',
             'email': 'Email',
             'password1': 'Senha',
             'password2': 'Confirmar Senha',
-            'additional_field_1': 'Additional Field 1',
-            'additional_field_2': 'Additional Field 2',
+            
         }
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Usuário'}),
