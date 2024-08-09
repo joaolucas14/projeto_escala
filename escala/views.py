@@ -2,10 +2,9 @@ from django.views.generic import TemplateView, ListView
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import FormView
+from django.views.generic import FormView, UpdateView
 from .forms import CustomLoginForm, RegisterForm, MissaForm
 from django.views.generic.edit import CreateView
-from django.contrib.auth.models import User
 from .models import Missa
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import UsuarioCustomizado
@@ -63,3 +62,12 @@ class RegistroMissa(LoginRequiredMixin, CreateView):
         form = super().get_form(form_class)
         form.fields['horario'].widget.choices = [(choice.strftime('%H:%M:%S'), label) for choice, label in Missa.HORARIOS_CHOICES]
         return form
+
+
+class EditarMissa(LoginRequiredMixin, UpdateView):
+    model = Missa
+    form_class = MissaForm
+    template_name = 'registration/editar_missa.html'
+    success_url = reverse_lazy('agenda')
+
+   
