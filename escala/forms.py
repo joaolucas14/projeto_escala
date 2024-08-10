@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field
 from .models import Missa
@@ -8,8 +7,17 @@ from .models import UsuarioCustomizado
 
 
 class CustomLoginForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Usuário'}), label="Usuário")
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Senha'}), label="Senha")
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 'placeholder': 'Usuário'
+            }),
+        label="Usuário"
+        )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control', 'placeholder': 'Senha'
+            }),
+        label="Senha")
 
 
 class RegisterForm(UserCreationForm):
@@ -32,7 +40,9 @@ class RegisterForm(UserCreationForm):
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Usuário'}),
             'password1': forms.PasswordInput(attrs={'placeholder': 'Senha'}),
-            'password2': forms.PasswordInput(attrs={'placeholder': 'Confirmar Senha'}),
+            'password2': forms.PasswordInput(attrs={
+                'placeholder': 'Confirmar Senha'
+                }),
         }
 
     def __init__(self, *args, **kwargs):
@@ -67,3 +77,35 @@ class MissaForm(forms.ModelForm):
             Field('horario', css_class='form-control'),
             Field('pessoas', css_class='form-control'),
         )
+
+
+class PerfilForm(forms.ModelForm):
+    class Meta:
+        model = UsuarioCustomizado
+        fields = ['username', 'email', 'first_name', 'last_name', 'escalado']
+        labels = {
+            'username': 'Usuário',
+            'email': 'Email',
+            'first_name': 'Nome',
+            'last_name': 'Sobrenome',
+            'escalado': 'Está Escalado?',
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': 'form-control form-control-sm', 'style': 'width: 50%;'
+                }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control form-control-sm', 'style': 'width: 50%;'
+                }),
+            'first_name': forms.TextInput(attrs={
+                'class': 'form-control form-control-sm', 'style': 'width: 50%;'
+                }),
+            'last_name': forms.TextInput(attrs={
+                'class': 'form-control form-control-sm', 'style': 'width: 50%;'
+                }),
+            'escalado': forms.CheckboxInput(attrs={
+                'class': 'form-check-input'
+                }),
+        }
+
+        
