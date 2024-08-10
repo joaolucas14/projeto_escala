@@ -6,17 +6,19 @@
     <div class="container mt-4">
         <ul class="list-group list-group-flush d-flex flex-row flex-wrap">
             {% for missa in missas %}
-            <li class="list-group-item me-3 border mb-5 mr-2">
-                <strong>Data:</strong> {{ missa.data }} <br>
-                <strong>Horário:</strong> {{ missa.horario }} <br>
-                <strong>Pessoas:</strong>
-                <ul class="list-unstyled">
-                    {% for pessoa in missa.pessoas.all %}
-                    <li><i class="bi bi-arrow-right-circle-fill ml-5 mr-1"></i>{{ pessoa.username }}</li>
-                    {% endfor %}
-                </ul>
+            <li class="list-group-item me-3 border mb-5 mr-2 d-flex flex-column">
+                <div>
+                    <strong>Data:</strong> {{ missa.data }} <br>
+                    <strong>Horário:</strong> {{ missa.horario }} <br>
+                    <strong>Pessoas:</strong>
+                    <ul class="list-unstyled mb-2">
+                        {% for pessoa in missa.pessoas.all %}
+                        <li><i class="bi bi-arrow-right-circle-fill ml-5 mr-1"></i>{{ pessoa.username }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
                 {% if user.is_superuser %}
-                    <a href="{% url 'editar-missa' missa.id %}" class="btn btn-warning text-white fw-bold btn-sm mt-3">Editar</a>
+                <a href="{% url 'editar-missa' missa.id %}" class="btn btn-warning text-white fw-bold btn-sm mt-auto">Editar</a>
                 {% endif %}
             </li>
             {% endfor %}

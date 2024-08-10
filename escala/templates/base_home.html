@@ -13,6 +13,9 @@
     h1{
         font-size: 1.8em;
     }
+    #id_username_helptext {
+      display: none;
+  }
   </style>
 </head>
 <body>
@@ -27,6 +30,13 @@
             </h1>
           </a>
           <ul class="nav nav-pills flex-column mt-2">
+            <li class="nav-item py-sm-0">
+              <a href="{% url 'perfil' %}" class="nav-link text-white">
+                
+                <i class="bi bi-person-circle"></i>
+                <span class="fs-4 d-none ms-3 d-sm-inline"> Perfil</span>
+              </a>
+            </li>
             <li class="nav-item py-sm-0">
               <a href="{% url 'agenda' %}" class="nav-link text-white">
                 
@@ -52,9 +62,9 @@
               <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
                 {% csrf_token %}
             </form>
-            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link text-white"> 
+            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link text-white">
               <i class="bi bi-box-arrow-right"></i>
-              Logout</a>
+              <span class="fs-4 d-none ms-3 d-sm-inline">Sair</span>
             </a>
           </li>
           </ul>

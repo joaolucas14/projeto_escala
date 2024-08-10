@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView, UpdateView
-from .forms import CustomLoginForm, RegisterForm, MissaForm
+from .forms import CustomLoginForm, RegisterForm, MissaForm, PerfilForm
 from django.views.generic.edit import CreateView
 from .models import Missa
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -60,7 +60,10 @@ class RegistroMissa(LoginRequiredMixin, CreateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        form.fields['horario'].widget.choices = [(choice.strftime('%H:%M:%S'), label) for choice, label in Missa.HORARIOS_CHOICES]
+        form.fields['horario'].widget.choices = [
+            (choice.strftime('%H:%M:%S'), label)
+            for choice, label in Missa.HORARIOS_CHOICES
+            ]
         return form
 
 
@@ -71,3 +74,11 @@ class EditarMissa(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('agenda')
 
    
+class Perfil(LoginRequiredMixin, UpdateView):
+    model = UsuarioCustomizado
+    form_class = PerfilForm
+    template_name = 'perfil/perfil.html'
+    success_url = reverse_lazy('perfil')
+
+    def get_object(self, queryset=None):
+        return self.request.user
