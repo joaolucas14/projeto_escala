@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DeleteView
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -82,3 +82,9 @@ class Perfil(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+    
+    
+class ExcluirMissa(LoginRequiredMixin, DeleteView):
+    model = Missa
+    template_name = 'registration/confirmar_exclusao_missa.html'
+    success_url = reverse_lazy('agenda')
