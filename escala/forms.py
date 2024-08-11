@@ -4,6 +4,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field
 from .models import Missa
 from .models import UsuarioCustomizado
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -77,6 +79,25 @@ class MissaForm(forms.ModelForm):
             Field('horario', css_class='form-control'),
             Field('pessoas', css_class='form-control'),
         )
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        data = cleaned_data.get('data')
+        pessoas = cleaned_data.get('pessoas')
+        horario = cleaned_data.get('horario')
+
+        for pessoa in pessoas:
+           
+            if Missa.objects.filter(
+                data=data, pessoas=pessoa
+                ).exclude(horario=horario).exists():
+                raise ValidationError(
+                    _('A pessoa %(pessoa)s já está escalada em outra missa no mesmo dia.'),
+                    code='invalid',
+                    params={'pessoa': pessoa.username},
+                )
+
+        return cleaned_data
 
 
 class PerfilForm(forms.ModelForm):
