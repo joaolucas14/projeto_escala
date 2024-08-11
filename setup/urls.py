@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from escala.views import Inicio, CustomLoginView, RegisterView, RegistroMissa, Agenda, EscalaGeral, EditarMissa, Perfil
+from escala.views import Inicio, CustomLoginView, RegisterView, RegistroMissa, Agenda, EscalaGeral, EditarMissa, Perfil, ExcluirMissa
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
@@ -14,4 +14,6 @@ urlpatterns = [
     path("cadastro_missa/", RegistroMissa.as_view(), name="cadastro_missa"),
     path('editar-missa/<int:pk>/', EditarMissa.as_view(), name='editar-missa'),
     path('perfil/', Perfil.as_view(), name='perfil'),
+    path('excluir_missa/<int:pk>/', ExcluirMissa.as_view(), name='excluir-missa'),
+
 ]

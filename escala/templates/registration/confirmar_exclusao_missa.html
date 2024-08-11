@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Confirmar Exclusão</h2>
+    <p>Tem certeza de que deseja excluir a missa de {{ object.data }} às {{ object.horario }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        <a href="{% url 'agenda' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

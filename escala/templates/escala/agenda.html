@@ -18,7 +18,10 @@
                     </ul>
                 </div>
                 {% if user.is_superuser %}
-                <a href="{% url 'editar-missa' missa.id %}" class="btn btn-warning text-white fw-bold btn-sm mt-auto">Editar</a>
+                <div class="d-inline-flex p-2 bd-highlight mt-auto">
+                <a href="{% url 'editar-missa' missa.id %}" class="btn btn-warning text-white fw-bold btn-sm mt-auto w-50 mr-2">Editar</a>
+                <a href="{% url 'excluir-missa' missa.id %}" class="btn btn-danger fw-bold btn-sm w-50">Excluir</a>
+                </div>
                 {% endif %}
             </li>
             {% endfor %}
