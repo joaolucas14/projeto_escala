@@ -3,7 +3,7 @@
     <h1>Escala Geral</h1>
     {% if missas %}
     <h1 class="mt-5 ml-2">Mensal: </h1>
-    <div class="container mt-4">        
+    <div class="container mt-4">
         <ul class="list-group list-group-flush d-flex flex-row flex-wrap">
             {% for missa in missas %}
             <li class="list-group-item me-3 border mb-5 mr-2 d-flex flex-column">
@@ -18,7 +18,10 @@
                     </ul>
                 </div>
                 {% if user.is_superuser %}
-                <a href="{% url 'editar-missa' missa.id %}" class="btn btn-warning text-white fw-bold btn-sm mt-auto">Editar</a>
+                <div class="d-inline-flex p-2 bd-highlight mt-auto">
+                <a href="{% url 'editar-missa' missa.id %}" class="btn btn-warning text-white fw-bold btn-sm mt-auto w-50 mr-2">Editar</a>
+                <a href="{% url 'excluir-missa' missa.id %}" class="btn btn-danger fw-bold btn-sm w-50">Excluir</a>
+                </div>
                 {% endif %}
             </li>
             {% endfor %}
