@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class UsuarioCustomizado(AbstractUser):
-    escalado = models.BooleanField(default=False)
+    enfermos = models.IntegerField(default=0, verbose_name="Número de enfermos atendidos")
     # Adicione aqui os campos adicionais
 
     def __str__(self):
