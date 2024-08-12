@@ -30,13 +30,14 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = UsuarioCustomizado
         fields = [
-            'username', 'email', 'password1', 'password2'
+            'username', 'email', 'password1', 'password2', 'enfermos'
             ]
         labels = {
             'username': 'Usuário',
             'email': 'Email',
             'password1': 'Senha',
             'password2': 'Confirmar Senha',
+            'enfermos': 'Quantidade de enfermos atendidos'
             
         }
         widgets = {
@@ -103,13 +104,13 @@ class MissaForm(forms.ModelForm):
 class PerfilForm(forms.ModelForm):
     class Meta:
         model = UsuarioCustomizado
-        fields = ['username', 'email', 'first_name', 'last_name', 'escalado']
+        fields = ['username', 'email', 'first_name', 'last_name', 'enfermos']
         labels = {
             'username': 'Usuário',
             'email': 'Email',
             'first_name': 'Nome',
             'last_name': 'Sobrenome',
-            'escalado': 'Está Escalado?',
+            'enfermos': "Número de enfermos atendidos"
         }
         widgets = {
             'username': forms.TextInput(attrs={
@@ -124,9 +125,10 @@ class PerfilForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={
                 'class': 'form-control form-control-sm', 'style': 'width: 50%;'
                 }),
-            'escalado': forms.CheckboxInput(attrs={
-                'class': 'form-check-input'
-                }),
+            'enfermos': forms.NumberInput(attrs={
+                'class': 'form-control form-control-sm',
+                'style': 'width: 50%;',
+            }),
         }
 
         

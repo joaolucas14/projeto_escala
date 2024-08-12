@@ -6,10 +6,7 @@ from .models import UsuarioCustomizado, Missa
 
 class UsuarioCustomizadoAdmin(UserAdmin):
     model = UsuarioCustomizado
-    list_display = ['username', 'email', 'is_staff', 'escalado']
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('escalado',)}),
-    )
+    list_display = ['username', 'email', 'is_staff', 'enfermos']
     
 
 class MissaAdmin(admin.ModelAdmin):
